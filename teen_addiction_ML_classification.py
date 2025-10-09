@@ -190,7 +190,7 @@ with col2:
     st.pyplot(fig_box2)
 
 
-st.subheader("Binary Classification Metrics")
+st.subheader("Binary Classification Metrics for Random Forest")
 
 y_binary = df["Addicted"].apply(lambda x: 1 if x in [1, "Yes", "True"] else 0)
 X_bin = df.drop(["Addiction_Level", "Addiction_Level_Category", "Addiction_Category", "Addicted"], axis=1)
@@ -252,4 +252,5 @@ ax_roc.set_ylabel('True Positive Rate')
 ax_roc.set_title('ROC Curve (Addicted)')
 ax_roc.legend(loc='lower right')
 st.pyplot(fig_roc)
+
 
