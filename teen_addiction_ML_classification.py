@@ -178,16 +178,21 @@ least_imp_feature = feat_imp.index[-1]
 col1, col2 = st.columns(2)
 
 with col1:
+    
     fig_box1, ax_box1 = plt.subplots(figsize=(5,4))
     sns.boxplot(data=df, y=most_imp_feature, x='Addiction_Category', palette="Set2", ax=ax_box1)
     ax_box1.set_title(f'Boxplot of Most Important Feature: {most_imp_feature}')
     st.pyplot(fig_box1)
 
 with col2:
-    fig_box2, ax_box2 = plt.subplots(figsize=(5,4))
-    sns.boxplot(data=df, y=least_imp_feature, x='Addiction_Category', palette="Set2", ax=ax_box2)
-    ax_box2.set_title(f'Boxplot of Least Important Feature: {least_imp_feature}')
-    st.pyplot(fig_box2)
+    
+    fig_bar, ax_bar = plt.subplots(figsize=(5,4))
+    mean_values = df.groupby('Addiction_Category')[least_imp_feature].mean().sort_index()
+    mean_values.plot(kind='bar', color=sns.color_palette("Set2"), ax=ax_bar)
+    ax_bar.set_title(f'Bar Plot of Least Important Feature: {least_imp_feature} (Mean by Category)')
+    ax_bar.set_ylabel(least_imp_feature)
+    ax_bar.set_xlabel('Addiction Category')
+    st.pyplot(fig_bar)
 
 
 st.subheader("Binary Classification Metrics for Random Forest")
@@ -252,5 +257,6 @@ ax_roc.set_ylabel('True Positive Rate')
 ax_roc.set_title('ROC Curve (Addicted)')
 ax_roc.legend(loc='lower right')
 st.pyplot(fig_roc)
+
 
 
